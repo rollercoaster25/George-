@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Wallet</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  min-height: 100svh;
+}
+
+.container {
+  width: 90%;
+  max-width: 420px;
+  background: #111;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.6);
+}
+
+.hidden { display: none; }
+
+h2 {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.card {
+  background: #1e1e1e;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.green { color: #2ecc71; font-weight: bold; }
+.red { color: #e74c3c; font-weight: bold; }
+
+.small {
+  font-size: 12px;
+  color: #aaa;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: #fff;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #1abc9c;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tx {
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+.tx:last-child { border-bottom: none; }
+
+/* swap animation */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid #333;
+  border-top: 4px solid #1abc9c;
+  border-radius: 50%;
+  margin: 16px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="container" id="login">
+  <h1>Trust investment Wallet </h1>
+  <input placeholder="Email">
+  <input type="password" placeholder="Password">
+  <button onclick="go('dashboard')">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="container hidden" id="dashboard">
+  <h2>GEORGE SMITH</h2>
+
+  <div class="card">
+    <div class="row">
+      <span>Main Balance</span>
+      <span id="mainBal" class="green">$130,000 USD</span>
+    </div>
+    <div class="row">
+      <span>Gas Balance</span>
+      <span id="gasBal" class="green">$485</span>
+    </div>
+    <p class="small">Gas Wallet:31msxbstHs3oQibXcsHun2aA6RNoyX2nTc</p>
+  </div>
+
+  <button onclick="startSwap()">withdraw with check </button>
+  <button onclick="go('withdraw')">Withdraw</button>
+
+    <div class="tx" onclick="openReceipt('Gas purchase,'$85')">
+      RECENT TRANSACTIONS </span>
+    </div>
+    
+  <div class="card">
+    <strong>Recent Transactions</strong>
+
+    <div class="tx" onclick="openReceipt('Gas deposit','$85')">
+       <span class="green">$85 CREDIT</span></div>
+       <span class="red">-$85 DEBIT</span>
+    </div>
+
+    <div class="tx" onclick="openReceipt('Withdrawal to Bank','$45,000')">
+      Withdrawal <span class="red">Pending</span>
+    </div>
+  </div>
+</div>
+
+<!-- SWAP -->
+<div class="container hidden" id="swap">
+  <h2>Processing</h2>
+  <div class="spinner"></div>
+  <p class="small" style="text-align:center">Confirming transaction…</p>
+</div>
+
+<!--  SUCCESS -->
+<div class="container hidden" id="swapDone">
+  <h2>Successful</h2>
+  <div class="card">
+    <p class="green">✔ kindly make a deposit of $20,000 into your wallet address  after depositing your check to confirm proof of ownership and continue using your wallet.
+    <p class="small">Gas fee not deducted</p>
+  </div>
+  <button onclick="finishSwap()">Home</button>
+</div>
+
+<!-- WITHDRAW -->
+<div class="container hidden" id="withdraw">
+  <h2>Withdraw Funds</h2>
+
+  
+  
+
+  <button onclick="go('pending')">HOME</button>
+</div>
+
+<!-- PENDING -->
+<div class="container hidden" id="pending">
+  <h2>SYSTEM ERROR</h2>
+  <div class="card">
+    <p>Status: <span class="red">Pending</span></p>
+    <class="RED"> KINDLY USE THE ATM FOR MOBILE DEPOSIT</span></p>
+    <p class="small">Transaction will commerce next season.</p>
+  </div>
+  <button onclick="go('dashboard')">Home</button>
+</div>
+
+<!-- RECEIPT -->
+<div class="container hidden" id="receipt">
+  <h2>Transaction Receipt</h2>
+  <div class="card">
+    <p id="rType"></p>
+    <p id="rAmount"></p>
+    <p>Status: <span class="green">successful</span></p>
+    <p class="small">TX Hash: 9f3a1c8e…b72</p>
+  </div>
+  <button onclick="go('dashboard')">Close</button>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.container')
+    .forEach(c => c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function startSwap(){
+  go('swap');
+  setTimeout(() => go('swapDone'), 1800);
+}
+
+function finishSwap(){
+  document.getElementById('mainBal').innerText = '$130,000 USD';
+  document.getElementById('gasBal').innerText = '$485';
+  go('dashboard');
+}
+
+function openReceipt(type, amount){
+  document.getElementById('rType').innerText = 'Type: ' + type;
+  document.getElementById('rAmount').innerText = 'Amount: ' + amount;
+  go('receipt');
+}
+</script>
+
+</body>
+</html>
