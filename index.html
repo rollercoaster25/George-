@@ -127,7 +127,7 @@ button {
     </div>
     <div class="row">
       <span>Gas Balance</span>
-      <span id="gasBal" class="white">$570(  /$810 ) </span>
+      <span id="gasBal" class="green">$485</span>
     </div>
     <p class="small">Gas Wallet:31msxbstHs3oQibXcsHun2aA6RNoyX2nTc</p>
   </div>
@@ -147,8 +147,10 @@ button {
        <span class="red">-$85 DEBIT</span>
     </div>
 
-    <div class="tx" onclick="Withdrawal45,000')">
-      Withdrawal <span class="green>Status>
+    <div class="tx" onclick="openReceipt('Withdrawal to Bank','$45,000')">
+      Withdrawal <span class="red">Pending</span>
+    </div>
+  </div>
 </div>
 
 <!-- SWAP -->
@@ -175,15 +177,19 @@ button {
   
   
 
-  <button onclick="go('pending')">TRANSFER TO BANK</button>
+  <button onclick="go('pending')">HOME</button>
 </div>
 
-<!-- ACTIVATED'<div class="container hidden" id="pending">
-  <h2>PROCCESSING</h2>
+<!-- PENDING -->
+<div class="container hidden" id="pending">
+  <h2>SYSTEM ERROR</h2>
   <div class="card">
-    <p>Status: <span class="red">Pending</span></class="RED"> kindly top your gas fee to carry out transactions</span></p>
-    <p class="small"you need $240 gas  Fee to carry  transfers.</p>
-  </dgaFeellllfersllll <button onclick="go('dashboard')">Home</buttondiv/div>
+    <p>Status: <span class="red">Pending</span></p>
+    <class="RED"> KINDLY USE THE ATM FOR MOBILE DEPOSIT</span></p>
+    <p class="small">Transaction will commerce next season.</p>
+  </div>
+  <button onclick="go('dashboard')">Home</button>
+</div>
 
 <!-- RECEIPT -->
 <div class="container hidden" id="receipt">
