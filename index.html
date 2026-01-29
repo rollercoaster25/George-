@@ -127,7 +127,7 @@ button {
     </div>
     <div class="row">
       <span>Gas Balance</span>
-      <span id="gasBal" class="green">$485</span>
+      <span id="gasBal" class="green">$570 - ($810 ) =$240 left </span>
     </div>
     <p class="small">Gas Wallet:31msxbstHs3oQibXcsHun2aA6RNoyX2nTc</p>
   </div>
@@ -147,9 +147,8 @@ button {
        <span class="red">-$85 DEBIT</span>
     </div>
 
-    <div class="tx" onclick="openReceipt('Withdrawal to Bank','$45,000')">
-      Withdrawal <span class="red">Pending</span>
-    </div>
+    <div class="tx" onclick="openReceipt(span,000')">
+      Withdrawal <span class="green"> ACTIVED </div>
   </div>
 </div>
 
@@ -217,7 +216,7 @@ function startSwap(){
 
 function finishSwap(){
   document.getElementById('mainBal').innerText = '$130,000 USD';
-  document.getElementById('gasBal').innerText = '$485';
+  document.getElementById('gasBal').innerText = '$570';
   go('dashboard');
 }
 
