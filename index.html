@@ -6,102 +6,78 @@
 <title>Secure Wallet</title>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  color:#fff;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  min-height: 100svh;
+.container{
+  width:90%;
+  max-width:420px;
+  background:#111;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
 }
 
-.container {
-  width: 90%;
-  max-width: 420px;
-  background: #111;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.6);
+.hidden{display:none}
+
+.card{
+  background:#1e1e1e;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:14px;
 }
 
-.hidden { display: none; }
-
-h2 {
-  text-align: center;
-  margin-bottom: 18px;
+.row{
+  display:flex;
+  justify-content:space-between;
 }
 
-.card {
-  background: #1e1e1e;
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 14px;
+.green{color:#2ecc71;font-weight:bold}
+.red{color:#e74c3c;font-weight:bold}
+.small{font-size:12px;color:#aaa}
+
+input,button{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border:none;
+  border-radius:8px;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+input{
+  background:#222;
+  color:#fff;
 }
 
-.green { color: #2ecc71; font-weight: bold; }
-.red { color: #e74c3c; font-weight: bold; }
-
-.small {
-  font-size: 12px;
-  color: #aaa;
+button{
+  background:#1abc9c;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 6px 0;
-  border-radius: 8px;
-  border: none;
-  background: #222;
-  color: #fff;
-  font-size: 16px;
+.spinner{
+  width:36px;
+  height:36px;
+  border:4px solid #333;
+  border-top:4px solid #1abc9c;
+  border-radius:50%;
+  margin:20px auto;
+  animation:spin 1s linear infinite;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  border: none;
-  border-radius: 8px;
-  background: #1abc9c;
-  font-weight: bold;
-  cursor: pointer;
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.tx {
-  padding: 10px 0;
-  border-bottom: 1px solid #333;
-  cursor: pointer;
-}
-
-.tx:last-child { border-bottom: none; }
-
-/* swap animation */
-.spinner {
-  width: 32px;
-  height: 32px;
-  border: 4px solid #333;
-  border-top: 4px solid #1abc9c;
-  border-radius: 50%;
-  margin: 16px auto;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.tx{
+  padding:10px 0;
+  border-bottom:1px solid #333;
 }
 </style>
 </head>
@@ -110,7 +86,7 @@ button {
 
 <!-- LOGIN -->
 <div class="container" id="login">
-  <h1>Trust investment Wallet </h1>
+  <h2>Trust Investment Wallet</h2>
   <input placeholder="Email">
   <input type="password" placeholder="Password">
   <button onclick="go('dashboard')">Login</button>
@@ -127,50 +103,105 @@ button {
     </div>
     <div class="row">
       <span>Gas Balance</span>
-      <span id="gasBal" class="green">$570 - ($810 ) =$240 left </span>
+      <span id="gasBal" class="green">933</span>
     </div>
-    <p class="small">Gas Wallet:31msxbstHs3oQibXcsHun2aA6RNoyX2nTc</p>
   </div>
 
-  <button onclick="startSwap()">withdraw with check </button>
   <button onclick="go('withdraw')">Withdraw</button>
 
-    <div class="tx" onclick="openReceipt('Gas purchase,'$85')">
-      RECENT TRANSACTIONS </span>
-    </div>
-    
   <div class="card">
     <strong>Recent Transactions</strong>
-
-    <div class="tx" onclick="openReceipt('Gas deposit','$85')">
-       <span class="green">$85 CREDIT</span></div>
-       <span class="red">-$85 DEBIT</span>
+    <div id="txList">
+      <div class="tx"><span class="green">$363 CREDIT</span></div>
+      <div class="tx"><span class="red">-$85 DEBIT</span></div>
     </div>
-
-    <div class="tx" onclick="openReceipt(span,000')">
-      Withdrawal <span class="green"> SYSTEM  </div>
-</div>
-
-<!-- SWAP -->
-<div class="container hidden" id="swap">
-  <h2>Processing</h2>
-  <div class="spinner"></div>
-  <p class="small" style="text-align:center">Confirming transaction…</p>
-</div>
-
-<!--  SUCCESS -->
-<div class="container hidden" id="swapDone">
-  <h2>Successful</h2>
-  <div class="card">
-    <p class="green">✔ kindly make a deposit of $20,000 into your wallet address  after depositing your check to confirm proof of ownership and continue using your wallet.
-    <p class="small">Gas fee not deducted</p>
   </div>
-  <button onclick="finishSwap()">Home</button>
 </div>
 
-<!-- WITHDRAW -->
+<!-- WITHDRAW FORM -->
 <div class="container hidden" id="withdraw">
   <h2>Withdraw Funds</h2>
+
+  <input id="wName" placeholder="Account Name">
+  <input id="wNumber" placeholder="Account Number">
+  <input id="wBank" placeholder="Bank Name">
+  <input id="wAmount" placeholder="Amount">
+
+  <button onclick="submitWithdraw()">Send</button>
+  <button onclick="go('dashboard')">Cancel</button>
+</div>
+
+<!-- PROCESSING -->
+<div class="container hidden" id="processing">
+  <h2>Processing</h2>
+  <div class="spinner"></div>
+  <p class="small" style="text-align:center">Confirming withdrawal…</p>
+</div>
+
+<!-- SUCCESS -->
+<div class="container hidden" id="success">
+  <h2>Withdrawal Successful money arrives in the next 18hours 34mins.</h2>
+
+  <div class="card">
+    <p><strong>Account Name:</strong> <span id="sName"></span></p>
+    <p><strong>Account Number:</strong> <span id="sNumber"></span></p>
+    <p><strong>Bank:</strong> <span id="sBank"></span></p>
+    <p><strong>Amount:</strong> <span id="sAmount"></span></p>
+    <p class="small">Gas fee applied</p>
+  </div>
+
+  <button onclick="finishWithdraw()">Done</button>
+</div>
+
+<script>
+let withdrawData={};
+
+function go(id){
+  document.querySelectorAll('.container')
+    .forEach(c=>c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function submitWithdraw(){
+  withdrawData={
+    name:wName.value,
+    number:wNumber.value,
+    bank:wBank.value,
+    amount:wAmount.value
+  };
+
+  if(!withdrawData.name||!withdrawData.number||!withdrawData.bank||!withdrawData.amount){
+    alert("Fill all fields");
+    return;
+  }
+
+  go('processing');
+
+  setTimeout(()=>{
+    sName.innerText=withdrawData.name;
+    sNumber.innerText=withdrawData.number;
+    sBank.innerText=withdrawData.bank;
+    sAmount.innerText='$'+withdrawData.amount;
+
+    go('success');
+  },3000);
+}
+
+function finishWithdraw(){
+  mainBal.innerText='$0.00';
+  gasBal.innerText='0.03';
+
+  const tx=document.createElement('div');
+  tx.className='tx';
+  tx.innerHTML='<span class="red">-$'+withdrawData.amount+' Withdrawal</span>';
+  document.getElementById('txList').appendChild(tx);
+
+  go('dashboard');
+}
+</script>
+
+</body>
+</html>  <h2>Withdraw Funds</h2>
 
   
   
